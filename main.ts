@@ -1,4 +1,4 @@
-let canShake = false, has10Sides = false;
+let canShake = false, sides = 6;
 
 input.onButtonPressed(Button.A, function () {
     canShake = true;
@@ -6,13 +6,18 @@ input.onButtonPressed(Button.A, function () {
 });
 
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    has10Sides = !has10Sides;
-    basic.showString(has10Sides ? "X" : "6");
+    if (sides === 6) {
+        sides = 10;
+        basic.showString("X");
+    } else {
+        sides = 6;
+        basic.showString("6");
+    }
 });
 
 input.onGesture(Gesture.Shake, function () {
     if (canShake) {
-        let rnd = randint(1, has10Sides ? 10 : 6);
+        let rnd = randint(1, sides);
 
         if (rnd === 1)
             basic.showLeds(`. . . . .
